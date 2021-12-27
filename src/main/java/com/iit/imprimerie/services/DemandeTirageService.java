@@ -14,9 +14,11 @@ import com.iit.imprimerie.dao.LigneDemandeDao;
 import com.iit.imprimerie.entities.DemandeTirage;
 import com.iit.imprimerie.entities.Ligne_Demande;
 import com.iit.imprimerie.entities_response.DemandeTirageResponse;
+import com.iit.imprimerie.entities_response.DemandeTirageResponseV2;
 import com.iit.imprimerie.entities_response.DocumentResponse;
 import com.iit.imprimerie.entities_response.EnseignantResponse;
 import com.iit.imprimerie.entities_response.Ligne_DemandeResponse;
+import com.iit.imprimerie.entities_response.Ligne_DemandeResponseV2;
 import com.iit.imprimerie.exception.NoException;
 import com.iit.imprimerie.exception.NotFoundException;
 import com.iit.imprimerie.proxies.MicroServiceDocumentProxy;
@@ -107,6 +109,13 @@ public class DemandeTirageService {
 		List<Ligne_DemandeResponse> d = getLdByIdDemande(mm.getId_demande());
 		mm.setEns(e);
 		mm.setLc(d);
+		return mm;
+
+	}
+	public DemandeTirageResponseV2 getDemandeTirageV2(int id) {
+		// verif m existe ou non
+		DemandeTirage m = getDemandeById(id);
+		DemandeTirageResponseV2 mm = new DemandeTirageResponseV2(m);
 		return mm;
 
 	}
@@ -244,6 +253,24 @@ public class DemandeTirageService {
 		}
 		return lsd;
 	}
+	
+	public List<Ligne_DemandeResponseV2> getLdByIdDemandeV2(int id) {
+		List<Ligne_Demande> ls = ldo.getLdByIdDemande(id);
+		List<Ligne_DemandeResponseV2> lsd = new ArrayList<Ligne_DemandeResponseV2>();
+		for (int i = 0; i < ls.size(); i++) {
+			Ligne_Demande l = ls.get(i);
+			Ligne_DemandeResponseV2 ll = new Ligne_DemandeResponseV2(l);
+			// verif doc exist
+			ll.setDoc(getDocById(l.getId_document()));
+			lsd.add(ll);
+		}
+		return lsd;
+	}
+	
+	
+	
+	
+	
 
 	public DemandeTirage getDemandeById(int id) {
 		try {

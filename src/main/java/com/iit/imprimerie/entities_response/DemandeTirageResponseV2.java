@@ -31,7 +31,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class DemandeTirageResponse implements Serializable {
+public class DemandeTirageResponseV2 implements Serializable {
 	private int id_demande;
 	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date date_demande;
@@ -40,10 +40,9 @@ public class DemandeTirageResponse implements Serializable {
 	private int nbr_copie; // limiter par nbr de classe
 	private int type_tirage; // presentielle (reservation place pour turage) ou bien envoie pdf a distant
 	private int etat_demande; // 1 si la demande et préparé si non 0
-	private List<Ligne_DemandeResponse> lc;
-	private EnseignantResponse ens;
+	private int id_ens;
 
-	public DemandeTirageResponse(DemandeTirage d) {
+	public DemandeTirageResponseV2(DemandeTirage d) {
 		this.id_demande = d.getId_demande();
 		this.date_demande = d.getDate_demande();
 		this.date_arrive = d.getDate_arrive();
@@ -51,21 +50,13 @@ public class DemandeTirageResponse implements Serializable {
 		this.type_tirage = d.getType_tirage(); // presentielle (reservation place pour turage) ou bien envoie pdf a
 												// distant
 		this.etat_demande = d.getEtat_demande(); // 1 si la demande et préparé si non 0
+		this.id_ens=d.getId_ens();
+		
 	}
 
-	public DemandeTirageResponse(DemandeTirage d, EnseignantResponse ens) {
-		this.id_demande = d.getId_demande();
-		this.date_demande = d.getDate_demande();
-		this.date_arrive = d.getDate_arrive();
-		this.nbr_copie = d.getNbr_copie(); // limiter par nbr de classe
-		this.type_tirage = d.getType_tirage(); // presentielle (reservation place pour turage) ou bien envoie pdf a
-												// distant
-		this.etat_demande = d.getEtat_demande(); // 1 si la demande et préparé si non 0
-		this.ens = ens;
-	}
+	
 
-	public DemandeTirageResponse(int id) {
+	public DemandeTirageResponseV2(int id) {
 		this.id_demande = id;
 	}
 }
-

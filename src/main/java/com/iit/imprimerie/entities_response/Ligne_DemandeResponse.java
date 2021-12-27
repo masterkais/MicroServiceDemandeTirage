@@ -34,12 +34,11 @@ import lombok.ToString;
 @EqualsAndHashCode
 public class Ligne_DemandeResponse implements Serializable {
 	
-	private int id;
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id_demande")
+	private int id_ligne;
 	private DemandeTirageResponse demande;
 	private DocumentResponse doc;
 	public Ligne_DemandeResponse(Ligne_Demande l) {
-		this.id=l.getId();
+		this.id_ligne=l.getId();
 		
 	
 	}
